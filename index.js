@@ -19,8 +19,7 @@ const createEmployeeRecords = (nestedEmployeeDetails) => {
 
 const createTimeInEvent = (employeeObj, timeStampIn) => {
   const timeInObj = {};
-  const date = timeStampIn.slice(0, 10);
-  const time = timeStampIn.slice(11);
+  const [date, time] = timeStampIn.split(' ');
 
   timeInObj.type = "TimeIn";
   timeInObj.hour = parseInt(time, 10);
@@ -50,13 +49,10 @@ const createTimeOutEvent = (employeeObj, timeStampOut) => {
 };
 
 const hoursWorkedOnDate = (employeeObj, date) => {
-  const timeInEvents = employeeObj["timeInEvents"];
-  const timeOutEvents = employeeObj["timeOutEvents"];
-  const timeInEvent = timeInEvents.find(event => event.date === date);
-  const timeOutEvent = timeOutEvents.find(event => event.date === date);
-  const hoursWorked = (timeOutEvent["hour"] - timeInEvent["hour"]) / 100;
+  const timeInEvent = employeeObj["timeInEvents"].find(event => event.date === date);
+  const timeOutEvent = employeeObj["timeOutEvents"].find(event => event.date === date);
 
-  return hoursWorked;
+  return (timeOutEvent["hour"] - timeInEvent["hour"]) / 100;
 };
 
 const wagesEarnedOnDate = (employeeObj, date) => {
@@ -65,9 +61,7 @@ const wagesEarnedOnDate = (employeeObj, date) => {
 };
 
 const allWagesFor = (employeeObj) => {
-  const timeInEvents = employeeObj["timeInEvents"];
-  const dates = timeInEvents.map(event => event.date);
-
+  const dates = employeeObj["timeInEvents"].map(event => event.date);
   return dates.reduce((total, date) => total + wagesEarnedOnDate(employeeObj, date), 0);
 };
 
