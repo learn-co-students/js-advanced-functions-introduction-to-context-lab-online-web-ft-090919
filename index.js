@@ -24,7 +24,7 @@ const getDate = function(dateTime){
   return dateTime.match(/\d{4}-\d{2}-\d{2}/)[0]
 }
 
-function createTimeInEvent(record, timeIn){
+let createTimeInEvent = function(record, timeIn){
   record.timeInEvents.push({
     type: "TimeIn",
     date: getDate(timeIn),
@@ -33,7 +33,7 @@ function createTimeInEvent(record, timeIn){
   return record
 }
 
-function createTimeOutEvent(record, timeOut){
+let createTimeOutEvent = function(record, timeOut){
   record.timeOutEvents.push({
     type: 'TimeOut',
     date: getDate(timeOut),
@@ -42,13 +42,13 @@ function createTimeOutEvent(record, timeOut){
   return record
 }
 
-function hoursWorkedOnDate(record, date){
+let hoursWorkedOnDate = function(record, date){
   let timeIn = record.timeInEvents.find(event => event.date == date)
   let timeOut = record.timeOutEvents.find(event => event.date == date)
   return (timeOut.hour - timeIn.hour)/100
 }
 
-function wagesEarnedOnDate(record, date){
+let wagesEarnedOnDate = function(record, date){
   let hours = hoursWorkedOnDate(record, date)
   return record.payPerHour * hours
 }
