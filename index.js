@@ -59,7 +59,8 @@ let allWagesFor = function(record){
 
 
 let calculatePayroll = function(employees){
-  return employees.reduce((total,employee) => {return total + allWagesFor(employee)}, 0)
+  return employees.reduce((total,employee) => {
+    return total + allWagesFor(employee)}, 0)
 }
 
 
