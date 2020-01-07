@@ -55,5 +55,5 @@ const findEmployeeByFirstName = (arr, firstName) => {
 }
 
 const calculatePayroll = (arr) => {
-    return  arr.reduce((x, el) => x + allWagesFor(el), 0)
+    return arr.reduce((x, el) => x + allWagesFor(el), 0)
 }
