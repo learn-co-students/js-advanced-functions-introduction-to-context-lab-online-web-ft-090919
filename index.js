@@ -1,6 +1,11 @@
 // Your code here
-function createEmployeeRecord(arrayOfArrays) {
-  arrayOfArrays.map(function(array) {
-    this.firstName = array[0];
-  });
-}
+let createEmployeeRecord = function(row) {
+  return {
+    firstName: row[0],
+    familyName: row[1],
+    title: row[2],
+    payPerHour: row[3],
+    timeInEvents: [],
+    timeOutEvents: []
+  };
+};
