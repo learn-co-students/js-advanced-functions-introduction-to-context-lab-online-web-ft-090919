@@ -8,6 +8,20 @@
 </head>
 <body>
   hello
+
+  function createTimeInEvent(obj, dateStamp) {
+
+    let timeInEvents = []
+
+    obj.type = "TimeIn"
+    obj.hour = dateStamp[11] + dateStamp[12]
+    obj.date = dateStamp[8] + dateStamp[9]
+
+    timeInEvents.push(obj)
+  
+    return timeInEvents[-1]
+}
+
   <script type="text/javascript" src="index.js"></script>
 </body>
 </html>
