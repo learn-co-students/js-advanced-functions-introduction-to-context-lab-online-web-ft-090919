@@ -23,15 +23,27 @@ function createTimeOutEvent(employee, date){
     return employee
 }
 
-function checkForDate(event, date){
-    debugger
-    return event.date === date
-}
-
 
 function hoursWorkedOnDate(employee, date){
-    const employeeInEvent = employee.timeInEvents.forEach(checkForDate(date)) //=> {type: ..., ...}
-    const employeeOutEvent = employee.timeOutEvents.forEach(checkForDate(date))
+    const employeeInEvent = employee.timeInEvents.find((event) => { return event.date === date}) //=> {type: ..., ...}
+    const employeeOutEvent = employee.timeOutEvents.find((event) => {return event.date === date})
     const hoursWorked = employeeOutEvent.hour - employeeInEvent.hour
-    return hoursWorked
+    return hoursWorked / 100
+}
+
+function wagesEarnedOnDate(employee, date){
+    return hoursWorkedOnDate(employee, date) * employee['payPerHour']
+}
+
+function allWagesFor(employee){
+    const dates = employee.timeInEvents.map((event) => {return event.date} )
+    return dates.reduce((sum, date) => {return sum + wagesEarnedOnDate(employee, date)}, 0)
+}
+
+function findEmployeeByFirstName(src, firstName){
+    return src.find((employee) => {return employee.firstName === firstName})
+}
+
+function calculatePayroll(src){
+    return src.reduce((sum, employee) => {return sum + allWagesFor(employee)},0)    
 }
